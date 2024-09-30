@@ -62,8 +62,8 @@ class Program
                 switch (choice)
                 {   
                     case 1: // crime,place,date
-                        for (int i = 0; i < list.Count; i++)
-                        {
+                        // for (int i = 0; i < list.Count; i++)
+                        // {
                         Reports report = new();
                         Console.WriteLine("Fyll i brott: ort: datum: ");
                         string c = Console.ReadLine();
@@ -74,27 +74,40 @@ class Program
                         report.AddCrime(c,p,d);
                         list.Add(report);
                         PrintReport();
+                        Console.WriteLine("Fylla i rapport? j/n");
+                        string choice1 = Console.ReadLine();
+                        if (choice1 == "j")
+                        {
+                            FillOutDetails();
                         }
+                        else
+                        {
+                            continue;   
+                        }
+                        // }
+                       
                     break; 
                     
                     case 2: // name,id,descrpition
                     // Välj rapport att fylla i: 
+                    Console.WriteLine("Välj rapport att fylla i: ");
                     for (int i = 0; i < list.Count; i++)
                         {
-                        Reports report = new();
-                        Console.WriteLine("Fyll i polis: ID-nummer: Beskrivning");
-                        string nam = Console.ReadLine();
-                        int id = Convert.ToInt32(Console.ReadLine());
-                        string des = Console.ReadLine();  
-                        report.AddDetails(nam, id, des);
-                        list.Add(report);
-                        PrintReport();
+                        
 
                         }
-
+                        FillOutDetails();
                     break; 
                     case 3: // Registrering av personal 
+                                //Reports report = new();
+            Console.Write("Namn: ");
+            string policeName = Console.ReadLine();
+            Console.Write("ID-Nummer: ");
+            int id = int.Parse(Console.ReadLine());
+            
 
+           //report.AddPolice(policeName, id);
+            Console.WriteLine();
                     break; 
                     
                     case 4: 
@@ -115,11 +128,32 @@ class Program
             Console.WriteLine("Typ av brott: " + list[i].Crime);
             Console.WriteLine("Plats:" + list[i].Place +", Datum: "+list[i].Date);
             Console.WriteLine("Polis: " + list[i].Name+ ", Id-nummer: "+list[i].IdNr);
-            Console.WriteLine("Beskrivning: "+list[i].Description);
+            Console.WriteLine("Beskrivning: " + list[i].Description);
             Console.WriteLine("__________________________");
             Console.ResetColor();
             }
             
+        }
+        public void FillOutDetails()
+        {
+            {
+                Reports report = new();
+                Console.WriteLine("Fyll i polis: ID-nummer: Beskrivning");
+                string nam = Console.ReadLine();
+                int id = Convert.ToInt32(Console.ReadLine());
+                string des = Console.ReadLine();  
+                report.AddDetails(nam, id, des);
+                list.Add(report);
+                Console.WriteLine("Här är all rapporter: ");
+                PrintReport();
+
+            }
+            
+
+        }
+        public void PrintPolice()
+        {
+
         }
 
 
@@ -165,10 +199,15 @@ class Program
             this.Description = description;
 
         }
+        public void AddPolice(string name, int idNr)
+        {
+            Name = name;
+            IdNr = idNr;
+        }
         public int GenerateReportNumber()
         {
         Random random = new Random();
-        return random.Next(999,6000);
+        return random.Next(4000,6000);
        
         }
 
